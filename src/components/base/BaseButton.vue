@@ -1,6 +1,5 @@
 <script setup lang="ts">
-
-import { computed } from 'vue';
+import { computed } from 'vue'
 const props = withDefaults(
   defineProps<{
     disabled?: boolean
@@ -17,49 +16,45 @@ const props = withDefaults(
   },
 )
 
-const labelClass = computed(() =>
-  props.small && props.icon ? "px-1" : "px-2"
-);
+const labelClass = computed(() => (props.small && props.icon ? 'px-1' : 'px-2'))
 
 const componentClass = computed(() => {
   const base: string[] = [
-    "inline-flex",
-    "cursor-pointer",
-    "justify-center",
-    "items-center",
-    "whitespace-nowrap",
-    "focus:outline-none",
-    "transition-colors",
-    "focus:ring",
-    "duration-150",
-    "border",
-    props.roundedFull ? "rounded-full" : "rounded",
-  ];
+    'inline-flex',
+    'cursor-pointer',
+    'justify-center',
+    'items-center',
+    'whitespace-nowrap',
+    'focus:outline-none',
+    'transition-colors',
+    'focus:ring',
+    'duration-150',
+    'border',
+    props.roundedFull ? 'rounded-full' : 'rounded',
+  ]
 
-  if(props.buttonClass) {
+  if (props.buttonClass) {
     base.push(props.buttonClass)
   }
 
   if (!props.label && props.icon) {
-    base.push("p-1");
+    base.push('p-1')
   } else if (props.small) {
-    base.push("text-sm", props.roundedFull ? "px-3 py-1" : "p-1");
+    base.push('text-sm', props.roundedFull ? 'px-3 py-1' : 'p-1')
   } else {
-    base.push("py-2", props.roundedFull ? "px-6" : "px-3");
+    base.push('py-2', props.roundedFull ? 'px-6' : 'px-3')
   }
 
   if (props.disabled) {
-    base.push(
-      "cursor-not-allowed",
-    );
+    base.push('cursor-not-allowed')
   }
 
-  return base;
-});
+  return base
+})
 </script>
 
 <template>
-  <button :is="'button'" :disabled="disabled" :class="componentClass">
+  <button :disabled="disabled" :class="componentClass">
     <BaseIcon v-if="icon" :path="icon" :size="iconSize" />
     <span v-if="label" :class="labelClass">{{ label }}</span>
   </button>
