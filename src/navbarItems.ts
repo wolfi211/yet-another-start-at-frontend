@@ -8,8 +8,8 @@ export const navbarItems: NavbarItem[] = [
     to: '/',
   },
   {
-    label: 'About',
+    label: 'Search',
     icon: mdiHome,
-    to: '/about',
+    to: '/search',
   },
 ]

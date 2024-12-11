@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { NavbarItem } from '@/types/base/navbar/NavbarItem'
+import type { NavbarItem } from '@/types/base/navbar/NavbarItem.ts'
+import BaseIcon from '@/components/base/BaseIcon.vue'
 
 defineProps<NavbarItem>()
 </script>

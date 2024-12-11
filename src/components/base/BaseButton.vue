@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import BaseIcon from './BaseIcon.vue'
 const props = withDefaults(
   defineProps<{
     disabled?: boolean
@@ -46,7 +47,8 @@ const componentClass = computed(() => {
   }
 
   if (props.disabled) {
-    base.push('cursor-not-allowed')
+    base.push('!cursor-not-allowed')
+    base.push('opacity-35')
   }
 
   return base
@@ -55,7 +57,7 @@ const componentClass = computed(() => {
 
 <template>
   <button :disabled="disabled" :class="componentClass">
-    <BaseIcon v-if="icon" :path="icon" :size="iconSize" />
+    <BaseIcon v-if="icon" :icon="icon" :size="iconSize" />
     <span v-if="label" :class="labelClass">{{ label }}</span>
   </button>
 </template>
