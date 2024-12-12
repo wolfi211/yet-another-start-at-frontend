@@ -10,7 +10,7 @@ defineProps<{
 
 <template>
   <div
-    class="min-h-12 min-w-12 border border-zinc-400 rounded-lg p-2 flex flex-col items-center content-center"
+    class="min-h-12 min-w-12 bg-zinc-50 shadow-md rounded-lg p-2 flex flex-col items-center content-center"
   >
     <div class="flex justify-between w-full">
       <div>{{ `Age: ${user.age}` }}</div>
@@ -22,7 +22,7 @@ defineProps<{
       </div>
     </div>
     <img :src="user.image" />
-    <div class="font-medium">
+    <div class="font-medium truncate text-nowrap">
       {{ `${user.firstName} ${user.lastName}` }}
     </div>
     <div class="text-xs text-zinc-500">

@@ -37,14 +37,14 @@ loadData()
 </script>
 
 <template>
-  <main class="mt-10 flex flex-col gap-5 items-center content-center">
+  <main class="flex flex-col gap-5 items-center content-center">
     <div id="searchBar" class="border border-zinc-300 flex gap-2">
       <input id="searchText" type="text" />
       <input id="dateFrom" type="date" />
       <input id="dateTo" type="date" />
       <BaseButton label="Search" />
     </div>
-    <div id="searchBody" class="flex flex-col gap-3">
+    <div id="searchBody" class="flex flex-col gap-3 w-[90%]">
       <div id="searchResults" class="grid grid-cols-10 gap-5">
         <SearchCard v-for="user in people" :key="user.id" :user="user" />
       </div>

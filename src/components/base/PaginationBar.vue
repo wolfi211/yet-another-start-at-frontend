@@ -27,7 +27,7 @@ const total = ref(props.total)
 const currentPage = computed(() => skip.value / limit.value + 1)
 const lastPage = computed(() => Math.floor(total.value / limit.value) + 1)
 
-const buttonClass = computed(() => ['border-none'])
+const buttonClass = computed(() => ['border-none', 'ring-0', 'outline-none', 'focus:!ring-0'])
 
 watch(skip, () => {
   emit('change', skip.value)
@@ -35,13 +35,14 @@ watch(skip, () => {
 </script>
 
 <template>
-  <div id="pagination" class="flex gap-1 border-2 rounded-3xl w-fit p-1">
+  <div id="pagination" class="flex gap-1 rounded-3xl w-fit p-1 shadow-md bg-zinc-50">
     <BaseButton
       :disabled="skip == 0"
       :icon="mdiChevronLeft"
       @click="skip -= limit"
-      class="w-11"
+      class="w-11 text-zinc-700"
       :button-class="buttonClass.join(' ')"
+      rounded-full
     />
     <div class="h-11 border-r-2 border-zinc-300"></div>
     <!-- FIRST PAGE -->
@@ -50,41 +51,41 @@ watch(skip, () => {
       label="1"
       @click="skip = 0"
       small
-      class="w-11"
+      class="w-11 text-sm"
       :button-class="buttonClass.join(' ')"
     />
     <!-- DOTS -->
-    <BaseIcon v-if="currentPage > 3" :icon="mdiDotsHorizontal" />
+    <BaseIcon v-if="currentPage > 3" :icon="mdiDotsHorizontal" class="text-zinc-700" />
     <!-- -3 -->
     <BaseButton
       v-if="currentPage > lastPage - 1"
       :label="(currentPage - 3).toString()"
-      @click="skip = 0"
+      @click="skip = (currentPage - 4) * limit"
       small
-      class="w-11"
+      class="w-11 text-sm"
       :button-class="buttonClass.join(' ')"
     />
     <!-- -2 -->
     <BaseButton
       v-if="currentPage > lastPage - 2"
       :label="(currentPage - 2).toString()"
-      @click="skip = 0"
+      @click="skip = (currentPage - 3) * limit"
       small
-      class="w-11"
+      class="w-11 text-sm"
       :button-class="buttonClass.join(' ')"
     />
     <!-- -1 -->
     <BaseButton
       v-if="currentPage > 2"
       :label="(currentPage - 1).toString()"
-      @click="skip = 0"
+      @click="skip = (currentPage - 2) * limit"
       small
-      class="w-11"
+      class="w-11 text-sm"
       :button-class="buttonClass.join(' ')"
     />
     <!-- CURRENT PAGE -->
     <div
-      class="border rounded h-11 w-11 font-medium text-center flex items-center content-center justify-center"
+      class="border rounded h-11 w-11 font-medium text-md text-center flex items-center content-center justify-center"
       :class="buttonClass"
     >
       {{ currentPage }}
@@ -93,37 +94,37 @@ watch(skip, () => {
     <BaseButton
       v-if="currentPage < lastPage - 1"
       :label="(currentPage + 1).toString()"
-      @click="skip = 0"
+      @click="skip = currentPage * limit"
       small
-      class="w-11"
+      class="w-11 text-sm"
       :button-class="buttonClass.join(' ')"
     />
     <!-- +2 -->
     <BaseButton
       v-if="currentPage < 3"
       :label="(currentPage + 2).toString()"
-      @click="skip = 0"
+      @click="skip = (currentPage + 1) * limit"
       small
-      class="w-11"
+      class="w-11 text-sm"
       :button-class="buttonClass.join(' ')"
     />
     <!-- +3 -->
     <BaseButton
       v-if="currentPage < 2"
       :label="(currentPage + 3).toString()"
-      @click="skip = 0"
+      @click="skip = (currentPage + 2) * limit"
       small
-      class="w-11"
+      class="w-11 text-sm"
       :button-class="buttonClass.join(' ')"
     />
     <!-- DOTS -->
-    <BaseIcon v-if="currentPage < lastPage - 2" :icon="mdiDotsHorizontal" />
+    <BaseIcon v-if="currentPage < lastPage - 2" :icon="mdiDotsHorizontal" class="text-zinc-700" />
     <!-- LAST PAGE -->
     <BaseButton
       v-if="skip + limit <= total"
       :label="(Math.floor(total / limit) + 1).toString()"
       @click="skip = Math.floor(total / limit) * limit"
-      class="w-11"
+      class="w-11 text-sm"
       :button-class="buttonClass.join(' ')"
     />
     <div class="h-11 border-r-2 border-zinc-300"></div>
@@ -131,8 +132,8 @@ watch(skip, () => {
       :disabled="skip + limit > total"
       :icon="mdiChevronRight"
       @click="skip += limit"
-      class="w-11"
-      :button-class="buttonClass.join(' ')"
+      class="w-11 text-zinc-700"
+      :button-class="buttonClass.join(' ') + ' !rounded-r-full !rounded-l'"
     />
   </div>
 </template>

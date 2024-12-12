@@ -5,6 +5,6 @@ import BaseLayout from './layout/BaseLayout.vue'
 
 <template>
   <BaseLayout>
-    <RouterView class="mt-3" />
+    <RouterView class="mt-5" />
   </BaseLayout>
 </template>
