@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import BaseIcon from './BaseIcon.vue'
+import { getButtonColor } from '@/colors'
 const props = withDefaults(
   defineProps<{
     disabled?: boolean
@@ -8,12 +9,18 @@ const props = withDefaults(
     iconSize?: number
     label?: string
     roundedFull?: boolean
-    buttonClass?: string
     small?: boolean
+    color?: string
+    outline?: boolean
+    active?: boolean
   }>(),
   {
     disabled: false,
     iconSize: 16,
+    active: false,
+    outline: false,
+    color: 'white',
+    buttonClass: () => [] as string[],
   },
 )
 
@@ -32,11 +39,8 @@ const componentClass = computed(() => {
     'duration-150',
     'border',
     props.roundedFull ? 'rounded-full' : 'rounded',
+    ...getButtonColor(props.color, props.outline, !props.disabled, props.active),
   ]
-
-  if (props.buttonClass) {
-    base.push(props.buttonClass)
-  }
 
   if (!props.label && props.icon) {
     base.push('p-1')
@@ -47,8 +51,7 @@ const componentClass = computed(() => {
   }
 
   if (props.disabled) {
-    base.push('!cursor-not-allowed')
-    base.push('opacity-35')
+    base.push('!cursor-not-allowed', props.outline ? 'opacity-50' : 'opacity-70')
   }
 
   return base

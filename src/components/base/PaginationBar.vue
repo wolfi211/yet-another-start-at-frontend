@@ -27,7 +27,7 @@ const total = ref(props.total)
 const currentPage = computed(() => skip.value / limit.value + 1)
 const lastPage = computed(() => Math.floor(total.value / limit.value) + 1)
 
-const buttonClass = computed(() => ['border-none', 'ring-0', 'outline-none', 'focus:!ring-0'])
+const buttonClass = computed(() => ['border-none', '!ring-0', '!outline-none', 'focus:!ring-0'])
 
 watch(skip, () => {
   emit('change', skip.value)
@@ -35,14 +35,13 @@ watch(skip, () => {
 </script>
 
 <template>
-  <div id="pagination" class="flex gap-1 rounded-3xl w-fit p-1 shadow-md bg-zinc-50">
+  <div id="pagination" class="flex gap-1 rounded-3xl w-fit p-1 shadow-md bg-zinc-50 items-center">
     <BaseButton
       :disabled="skip == 0"
       :icon="mdiChevronLeft"
       @click="skip -= limit"
       class="w-11 text-zinc-700"
-      :button-class="buttonClass.join(' ')"
-      rounded-full
+      :class="[buttonClass, '!rounded-l-full', '!rounded-r']"
     />
     <div class="h-11 border-r-2 border-zinc-300"></div>
     <!-- FIRST PAGE -->
@@ -50,9 +49,8 @@ watch(skip, () => {
       v-if="skip != 0"
       label="1"
       @click="skip = 0"
-      small
       class="w-11 text-sm"
-      :button-class="buttonClass.join(' ')"
+      :class="buttonClass"
     />
     <!-- DOTS -->
     <BaseIcon v-if="currentPage > 3" :icon="mdiDotsHorizontal" class="text-zinc-700" />
@@ -61,27 +59,24 @@ watch(skip, () => {
       v-if="currentPage > lastPage - 1"
       :label="(currentPage - 3).toString()"
       @click="skip = (currentPage - 4) * limit"
-      small
       class="w-11 text-sm"
-      :button-class="buttonClass.join(' ')"
+      :class="buttonClass"
     />
     <!-- -2 -->
     <BaseButton
       v-if="currentPage > lastPage - 2"
       :label="(currentPage - 2).toString()"
       @click="skip = (currentPage - 3) * limit"
-      small
       class="w-11 text-sm"
-      :button-class="buttonClass.join(' ')"
+      :class="buttonClass"
     />
     <!-- -1 -->
     <BaseButton
       v-if="currentPage > 2"
       :label="(currentPage - 1).toString()"
       @click="skip = (currentPage - 2) * limit"
-      small
       class="w-11 text-sm"
-      :button-class="buttonClass.join(' ')"
+      :button="buttonClass"
     />
     <!-- CURRENT PAGE -->
     <div
@@ -95,27 +90,24 @@ watch(skip, () => {
       v-if="currentPage < lastPage - 1"
       :label="(currentPage + 1).toString()"
       @click="skip = currentPage * limit"
-      small
       class="w-11 text-sm"
-      :button-class="buttonClass.join(' ')"
+      :class="buttonClass"
     />
     <!-- +2 -->
     <BaseButton
       v-if="currentPage < 3"
       :label="(currentPage + 2).toString()"
       @click="skip = (currentPage + 1) * limit"
-      small
       class="w-11 text-sm"
-      :button-class="buttonClass.join(' ')"
+      :class="buttonClass"
     />
     <!-- +3 -->
     <BaseButton
       v-if="currentPage < 2"
       :label="(currentPage + 3).toString()"
       @click="skip = (currentPage + 2) * limit"
-      small
       class="w-11 text-sm"
-      :button-class="buttonClass.join(' ')"
+      :class="buttonClass"
     />
     <!-- DOTS -->
     <BaseIcon v-if="currentPage < lastPage - 2" :icon="mdiDotsHorizontal" class="text-zinc-700" />
@@ -125,7 +117,7 @@ watch(skip, () => {
       :label="(Math.floor(total / limit) + 1).toString()"
       @click="skip = Math.floor(total / limit) * limit"
       class="w-11 text-sm"
-      :button-class="buttonClass.join(' ')"
+      :class="buttonClass"
     />
     <div class="h-11 border-r-2 border-zinc-300"></div>
     <BaseButton
@@ -133,7 +125,7 @@ watch(skip, () => {
       :icon="mdiChevronRight"
       @click="skip += limit"
       class="w-11 text-zinc-700"
-      :button-class="buttonClass.join(' ') + ' !rounded-r-full !rounded-l'"
+      :class="[buttonClass, '!rounded-r-full', '!rounded-l']"
     />
   </div>
 </template>
