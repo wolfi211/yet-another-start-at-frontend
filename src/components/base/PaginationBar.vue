@@ -35,7 +35,11 @@ watch(skip, () => {
 </script>
 
 <template>
-  <div id="pagination" class="flex gap-1 rounded-3xl w-fit p-1 shadow-md bg-zinc-50 items-center">
+  <div
+    v-if="lastPage != 1"
+    id="pagination"
+    class="flex gap-1 rounded-3xl w-fit p-1 shadow-md bg-zinc-50 items-center"
+  >
     <BaseButton
       :disabled="skip == 0"
       :icon="mdiChevronLeft"
